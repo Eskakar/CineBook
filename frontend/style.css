@@ -1,0 +1,374 @@
+/* style.css — CineBook custom styles (pelengkap Tailwind CSS) */
+
+/* ======================================================
+   Global & Font
+   ====================================================== */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  background-color: #0f0f13;
+  color: #e2e8f0;
+}
+
+/* ======================================================
+   Scrollbar custom (dark theme)
+   ====================================================== */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: #1a1a2e; }
+::-webkit-scrollbar-thumb { background: #e11d48; border-radius: 3px; }
+
+/* ======================================================
+   Navbar
+   ====================================================== */
+.navbar {
+  background: rgba(15, 15, 19, 0.95);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(225, 29, 72, 0.2);
+  position: sticky;
+  top: 0;
+  z-index: 50;
+}
+
+/* ======================================================
+   Movie Card
+   ====================================================== */
+.movie-card {
+  background: #1a1a2e;
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 12px;
+  overflow: hidden;
+  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+  cursor: pointer;
+}
+
+.movie-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 32px rgba(225, 29, 72, 0.25);
+  border-color: rgba(225, 29, 72, 0.5);
+}
+
+.movie-card img {
+  width: 100%;
+  aspect-ratio: 2/3;
+  object-fit: cover;
+  display: block;
+}
+
+/* ======================================================
+   Badge genre
+   ====================================================== */
+.genre-badge {
+  display: inline-block;
+  padding: 2px 10px;
+  border-radius: 999px;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  background: rgba(225, 29, 72, 0.15);
+  color: #fda4af;
+  border: 1px solid rgba(225, 29, 72, 0.3);
+}
+
+/* ======================================================
+   Schedule Button
+   ====================================================== */
+.schedule-btn {
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  border: 1px solid rgba(251, 191, 36, 0.4);
+  background: rgba(251, 191, 36, 0.08);
+  color: #fbbf24;
+  cursor: pointer;
+  transition: background 0.2s, border-color 0.2s;
+  white-space: nowrap;
+}
+
+.schedule-btn:hover {
+  background: rgba(251, 191, 36, 0.2);
+  border-color: #fbbf24;
+}
+
+/* ======================================================
+   Seat Grid
+   ====================================================== */
+.seat-grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 8px;
+  max-width: 320px;
+  margin: 0 auto;
+}
+
+.seat {
+  aspect-ratio: 1;
+  border-radius: 6px;
+  border: 2px solid transparent;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.65rem;
+  font-weight: 700;
+  transition: transform 0.15s ease, background 0.15s ease, border-color 0.15s ease;
+  user-select: none;
+}
+
+/* Kursi tersedia */
+.seat.available {
+  background: #1e293b;
+  border-color: #334155;
+  color: #94a3b8;
+}
+
+.seat.available:hover {
+  background: #1e3a5f;
+  border-color: #3b82f6;
+  color: #93c5fd;
+  transform: scale(1.1);
+}
+
+/* Kursi dipilih */
+.seat.selected {
+  background: #16a34a;
+  border-color: #22c55e;
+  color: #fff;
+  transform: scale(1.05);
+}
+
+/* Kursi terisi */
+.seat.booked {
+  background: #3f1f2a;
+  border-color: #7f1d1d;
+  color: #6b7280;
+  cursor: not-allowed;
+}
+
+/* ======================================================
+   Legenda Kursi
+   ====================================================== */
+.seat-legend {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-top: 12px;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.75rem;
+  color: #94a3b8;
+}
+
+.legend-dot {
+  width: 14px;
+  height: 14px;
+  border-radius: 3px;
+  flex-shrink: 0;
+}
+
+/* ======================================================
+   Tombol aksi utama (merah)
+   ====================================================== */
+.btn-primary {
+  background: #e11d48;
+  color: #fff;
+  font-weight: 700;
+  padding: 12px 28px;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.15s;
+  font-size: 0.9rem;
+}
+
+.btn-primary:hover {
+  background: #be123c;
+  transform: translateY(-1px);
+}
+
+.btn-primary:disabled {
+  background: #4b5563;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* ======================================================
+   Form input (dark)
+   ====================================================== */
+.input-dark {
+  background: #1e293b;
+  border: 1px solid #334155;
+  border-radius: 8px;
+  color: #e2e8f0;
+  padding: 10px 14px;
+  font-size: 0.875rem;
+  width: 100%;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.input-dark::placeholder { color: #475569; }
+
+.input-dark:focus {
+  border-color: #e11d48;
+}
+
+/* ======================================================
+   Konfirmasi tiket
+   ====================================================== */
+.ticket-card {
+  background: #1a1a2e;
+  border: 1px solid rgba(225, 29, 72, 0.3);
+  border-radius: 16px;
+  overflow: hidden;
+  max-width: 480px;
+  margin: 0 auto;
+}
+
+.ticket-header {
+  background: linear-gradient(135deg, #e11d48 0%, #9f1239 100%);
+  padding: 24px;
+  text-align: center;
+}
+
+.ticket-body {
+  padding: 24px;
+}
+
+.ticket-divider {
+  position: relative;
+  height: 1px;
+  background: rgba(255,255,255,0.08);
+  margin: 0 -24px;
+}
+
+/* Notch kiri & kanan seperti tiket fisik */
+.ticket-divider::before,
+.ticket-divider::after {
+  content: '';
+  position: absolute;
+  top: -10px;
+  width: 20px;
+  height: 20px;
+  background: #0f0f13;
+  border-radius: 50%;
+}
+
+.ticket-divider::before { left: -10px; }
+.ticket-divider::after  { right: -10px; }
+
+.booking-code {
+  font-family: 'Courier New', monospace;
+  font-size: 1.5rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  color: #fbbf24;
+}
+
+/* ======================================================
+   Loading spinner
+   ====================================================== */
+.spinner {
+  width: 36px;
+  height: 36px;
+  border: 3px solid #334155;
+  border-top-color: #e11d48;
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+  margin: 40px auto;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* ======================================================
+   Toast notification
+   ====================================================== */
+#toast {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  background: #1e293b;
+  border: 1px solid #334155;
+  border-radius: 10px;
+  padding: 12px 20px;
+  font-size: 0.875rem;
+  color: #e2e8f0;
+  z-index: 100;
+  opacity: 0;
+  transform: translateY(12px);
+  transition: opacity 0.3s, transform 0.3s;
+  pointer-events: none;
+}
+
+#toast.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+#toast.error  { border-color: #e11d48; color: #fda4af; }
+#toast.success { border-color: #22c55e; color: #86efac; }
+
+/* ======================================================
+   Modal (detail film)
+   ====================================================== */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.7);
+  backdrop-filter: blur(4px);
+  z-index: 40;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s ease;
+}
+
+.modal-overlay.open {
+  opacity: 1;
+  pointer-events: all;
+}
+
+.modal-box {
+  background: #1a1a2e;
+  border: 1px solid rgba(225,29,72,0.25);
+  border-radius: 16px;
+  width: 100%;
+  max-width: 560px;
+  max-height: 90vh;
+  overflow-y: auto;
+  transform: scale(0.95);
+  transition: transform 0.25s ease;
+}
+
+.modal-overlay.open .modal-box {
+  transform: scale(1);
+}
+
+/* ======================================================
+   Responsive helpers
+   ====================================================== */
+@media (max-width: 480px) {
+  .seat-grid {
+    grid-template-columns: repeat(6, 1fr);
+    gap: 5px;
+    max-width: 260px;
+  }
+
+  .seat { font-size: 0.55rem; }
+}

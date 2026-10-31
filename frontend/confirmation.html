@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Konfirmasi Tiket — CineBook</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body class="min-h-screen">
+
+  <!-- ===== NAVBAR ===== -->
+  <nav class="navbar px-4 py-3">
+    <div class="max-w-6xl mx-auto flex items-center justify-between">
+      <a href="index.html" class="flex items-center gap-2 text-white font-bold text-xl tracking-tight">
+        🎬 <span class="text-red-500">Cine</span>Book
+      </a>
+      <div id="navAuth" class="flex items-center gap-4"></div>
+    </div>
+  </nav>
+
+  <!-- ===== LOADING ===== -->
+  <div id="loadingConfirmation" class="spinner mt-20"></div>
+
+  <!-- ===== TIKET ===== -->
+  <main id="confirmationContent" class="hidden max-w-lg mx-auto px-4 py-10">
+
+    <!-- Sukses banner -->
+    <div class="text-center mb-6">
+      <div class="text-5xl mb-3">🎉</div>
+      <h1 class="text-white font-bold text-2xl">Pemesanan Berhasil!</h1>
+      <p class="text-slate-400 text-sm mt-1">Simpan kode booking kamu ya</p>
+    </div>
+
+    <!-- Kartu Tiket -->
+    <div class="ticket-card">
+      <!-- Header tiket -->
+      <div class="ticket-header">
+        <p class="text-red-200 text-xs uppercase tracking-widest mb-1">Kode Booking</p>
+        <p id="confBookingCode" class="booking-code"></p>
+        <p class="text-red-200 text-xs mt-2">Tunjukkan kode ini kepada petugas bioskop</p>
+      </div>
+
+      <!-- Notch pemisah -->
+      <div class="ticket-divider mx-6"></div>
+
+      <!-- Body tiket -->
+      <div class="ticket-body space-y-4">
+        <!-- Film -->
+        <div class="flex gap-4 items-start">
+          <img id="confPoster" src="" alt="" class="w-16 rounded-lg object-cover flex-shrink-0" style="aspect-ratio:2/3;" />
+          <div>
+            <p class="text-white font-bold text-base" id="confMovieTitle"></p>
+            <p id="confGenre" class="genre-badge mt-1"></p>
+            <p class="text-slate-400 text-xs mt-2">⏱ <span id="confDuration"></span> menit</p>
+          </div>
+        </div>
+
+        <!-- Detail jadwal -->
+        <div class="grid grid-cols-2 gap-3 text-sm">
+          <div>
+            <p class="text-slate-500 text-xs uppercase tracking-wide mb-1">Tanggal & Waktu</p>
+            <p class="text-white font-medium" id="confShowTime"></p>
+          </div>
+          <div>
+            <p class="text-slate-500 text-xs uppercase tracking-wide mb-1">Studio</p>
+            <p class="text-white font-medium" id="confStudio"></p>
+          </div>
+        </div>
+
+        <!-- Kursi -->
+        <div>
+          <p class="text-slate-500 text-xs uppercase tracking-wide mb-2">Kursi</p>
+          <div id="confSeats" class="flex flex-wrap gap-2">
+            <!-- Di-render oleh confirmation.js -->
+          </div>
+        </div>
+
+        <!-- Pemesan -->
+        <div class="grid grid-cols-2 gap-3 text-sm">
+          <div>
+            <p class="text-slate-500 text-xs uppercase tracking-wide mb-1">Nama</p>
+            <p class="text-white font-medium" id="confName"></p>
+          </div>
+          <div>
+            <p class="text-slate-500 text-xs uppercase tracking-wide mb-1">Email</p>
+            <p class="text-white font-medium text-xs break-all" id="confEmail"></p>
+          </div>
+        </div>
+
+        <!-- Total harga -->
+        <div class="flex justify-between items-center pt-3 border-t border-white/5">
+          <span class="text-slate-300 text-sm">Total Pembayaran</span>
+          <span id="confTotal" class="text-yellow-400 font-bold text-xl"></span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tombol kembali -->
+    <div class="text-center mt-8">
+      <a href="index.html" class="btn-primary inline-block">← Pesan Tiket Lain</a>
+    </div>
+  </main>
+
+  <!-- ===== ERROR STATE ===== -->
+  <div id="confirmationError" class="hidden text-center py-20 text-slate-500">
+    <p class="text-5xl mb-4">😞</p>
+    <p class="text-white text-lg mb-2">Kode booking tidak ditemukan</p>
+    <a href="index.html" class="text-red-400 hover:text-red-300 text-sm">← Kembali ke beranda</a>
+  </div>
+
+  <!-- ===== TOAST ===== -->
+  <div id="toast"></div>
+
+  <script src="script/auth.js"></script>
+  <script src="script/confirmation.js"></script>
+</body>
+</html>

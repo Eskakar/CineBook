@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pilih Kursi — CineBook</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body class="min-h-screen">
+
+  <!-- ===== NAVBAR ===== -->
+  <nav class="navbar px-4 py-3">
+    <div class="max-w-6xl mx-auto flex items-center justify-between">
+      <a href="index.html" class="flex items-center gap-2 text-white font-bold text-xl tracking-tight">
+        🎬 <span class="text-red-500">Cine</span>Book
+      </a>
+      <div class="flex items-center gap-4">
+        <div id="navAuth" class="flex items-center gap-3"></div>
+        <a href="index.html" class="text-slate-400 hover:text-white text-sm transition">← Kembali</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ===== LOADING ===== -->
+  <div id="loadingBooking" class="spinner mt-20"></div>
+
+  <!-- ===== KONTEN UTAMA ===== -->
+  <main id="bookingContent" class="hidden max-w-5xl mx-auto px-4 py-8">
+
+    <!-- Info Film & Jadwal -->
+    <div class="bg-[#1a1a2e] border border-white/5 rounded-2xl p-5 mb-8 flex gap-4 items-start">
+      <img id="bookMoviePoster" src="" alt="" class="w-20 rounded-lg object-cover flex-shrink-0" style="aspect-ratio:2/3;" />
+      <div>
+        <h1 id="bookMovieTitle" class="text-white font-bold text-xl mb-1"></h1>
+        <p id="bookMovieGenre" class="genre-badge mb-2"></p>
+        <p class="text-slate-400 text-sm">📅 <span id="bookShowTime"></span></p>
+        <p class="text-slate-400 text-sm">🏠 <span id="bookStudio"></span></p>
+        <p class="text-slate-400 text-sm">💰 Rp <span id="bookPrice"></span> / kursi</p>
+      </div>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+
+      <!-- Kiri: Layar + Grid Kursi -->
+      <div>
+        <!-- Layar -->
+        <div class="text-center mb-6">
+          <div class="inline-block bg-gradient-to-b from-slate-300 to-slate-500 text-slate-900 text-xs font-bold tracking-widest px-16 py-1 rounded-b-lg mb-1">LAYAR</div>
+          <div class="h-1 bg-gradient-to-r from-transparent via-slate-500 to-transparent rounded-full mx-4"></div>
+        </div>
+
+        <!-- Grid kursi -->
+        <div id="seatGrid" class="seat-grid mb-4">
+          <!-- Di-render oleh booking.js -->
+        </div>
+        <div id="loadingSeats" class="spinner" style="width:24px;height:24px;margin:12px auto;"></div>
+
+        <!-- Legenda -->
+        <div class="seat-legend">
+          <div class="legend-item">
+            <div class="legend-dot bg-[#1e293b] border-2 border-[#334155]"></div>
+            <span>Tersedia</span>
+          </div>
+          <div class="legend-item">
+            <div class="legend-dot bg-[#16a34a] border-2 border-[#22c55e]"></div>
+            <span>Dipilih</span>
+          </div>
+          <div class="legend-item">
+            <div class="legend-dot bg-[#3f1f2a] border-2 border-[#7f1d1d]"></div>
+            <span>Terisi</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Kanan: Ringkasan & Form -->
+      <div class="bg-[#1a1a2e] border border-white/5 rounded-2xl p-6">
+        <h2 class="text-white font-semibold text-lg mb-4">Ringkasan Pesanan</h2>
+
+        <!-- Kursi terpilih -->
+        <div class="mb-4">
+          <p class="text-slate-400 text-xs uppercase tracking-wide mb-2">Kursi Dipilih</p>
+          <div id="selectedSeatsDisplay" class="text-slate-400 text-sm italic">Belum ada kursi dipilih</div>
+        </div>
+
+        <!-- Total harga -->
+        <div class="flex justify-between items-center py-3 border-t border-white/5 border-b mb-5">
+          <span class="text-slate-300 text-sm">Total Harga</span>
+          <span id="totalPriceDisplay" class="text-yellow-400 font-bold text-lg">Rp 0</span>
+        </div>
+
+        <!-- Info pemesan (diisi otomatis dari akun yang login) -->
+        <div class="space-y-3 mb-5">
+          <div>
+            <label class="text-slate-400 text-xs uppercase tracking-wide block mb-1">Nama Pemesan</label>
+            <input id="customerName" type="text" class="input-dark opacity-70 cursor-not-allowed" readonly />
+          </div>
+          <div>
+            <label class="text-slate-400 text-xs uppercase tracking-wide block mb-1">Email Pemesan</label>
+            <input id="customerEmail" type="email" class="input-dark opacity-70 cursor-not-allowed" readonly />
+          </div>
+        </div>
+
+        <!-- Tombol pesan -->
+        <button id="btnBooking" class="btn-primary w-full" disabled>
+          Pesan Tiket
+        </button>
+        <p id="bookingError" class="text-red-400 text-xs mt-2 hidden"></p>
+      </div>
+    </div>
+  </main>
+
+  <!-- ===== ERROR STATE ===== -->
+  <div id="bookingError404" class="hidden text-center py-20 text-slate-500">
+    <p class="text-5xl mb-4">🎟️</p>
+    <p class="text-lg text-white mb-2">Jadwal tidak ditemukan</p>
+    <a href="index.html" class="text-red-400 hover:text-red-300 text-sm">← Kembali ke daftar film</a>
+  </div>
+
+  <!-- ===== TOAST ===== -->
+  <div id="toast"></div>
+
+  <script src="script/auth.js"></script>
+  <script src="script/booking.js"></script>
+</body>
+</html>

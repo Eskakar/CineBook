@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tiket Saya — CineBook</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body class="min-h-screen">
+
+  <!-- ===== NAVBAR ===== -->
+  <nav class="navbar px-4 py-3">
+    <div class="max-w-6xl mx-auto flex items-center justify-between">
+      <a href="index.html" class="flex items-center gap-2 text-white font-bold text-xl tracking-tight">
+        🎬 <span class="text-red-500">Cine</span>Book
+      </a>
+      <div class="flex items-center gap-4">
+        <div id="navAuth" class="flex items-center gap-3"></div>
+        <a href="index.html" class="text-slate-400 hover:text-white text-sm transition">← Beranda</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ===== HERO ===== -->
+  <section class="py-10 px-4 text-center">
+    <h1 class="text-3xl font-bold text-white mb-2">Tiket <span class="text-red-500">Saya</span></h1>
+    <p class="text-slate-400 text-sm">Masukkan email untuk melihat riwayat pemesanan tiket kamu</p>
+  </section>
+
+  <!-- ===== FORM CARI ===== -->
+  <div class="max-w-md mx-auto px-4 mb-8">
+    <form id="searchForm" class="flex gap-2" novalidate>
+      <input
+        id="emailInput"
+        type="email"
+        placeholder="email@contoh.com"
+        class="input-dark flex-1"
+        required
+      />
+      <button type="submit" class="btn-primary px-5 py-2 text-sm">Cari</button>
+    </form>
+    <p id="formError" class="text-red-400 text-xs mt-2 hidden">Masukkan email yang valid.</p>
+  </div>
+
+  <!-- ===== HASIL ===== -->
+  <main class="max-w-3xl mx-auto px-4 pb-16">
+
+    <!-- Loading -->
+    <div id="loadingTickets" class="spinner hidden"></div>
+
+    <!-- Empty / not searched yet -->
+    <div id="emptyState" class="text-center py-12 text-slate-500">
+      <p class="text-5xl mb-3">🎟️</p>
+      <p class="text-sm">Masukkan email di atas untuk mencari tiket kamu.</p>
+    </div>
+
+    <!-- No results -->
+    <div id="noResults" class="hidden text-center py-12 text-slate-500">
+      <p class="text-5xl mb-3">😞</p>
+      <p class="text-white text-base mb-1">Tidak ada tiket ditemukan</p>
+      <p class="text-sm">Pastikan email yang kamu masukkan sama dengan saat memesan.</p>
+    </div>
+
+    <!-- Daftar tiket -->
+    <div id="ticketList" class="hidden space-y-4">
+      <!-- Di-render oleh my-tickets.js -->
+    </div>
+  </main>
+
+  <!-- ===== MODAL DETAIL TIKET ===== -->
+  <div id="ticketModal" class="modal-overlay" role="dialog" aria-modal="true">
+    <div class="modal-box max-w-md">
+      <div class="p-5">
+        <!-- Tombol tutup -->
+        <div class="flex justify-between items-center mb-4">
+          <h2 class="text-white font-bold text-lg">Detail Tiket</h2>
+          <button id="closeTicketModal" class="text-slate-400 hover:text-white text-2xl leading-none transition">✕</button>
+        </div>
+
+        <!-- Header tiket dalam modal -->
+        <div class="ticket-header rounded-xl mb-4 text-center">
+          <p class="text-red-200 text-xs uppercase tracking-widest mb-1">Kode Booking</p>
+          <p id="modalBookingCode" class="booking-code"></p>
+        </div>
+
+        <!-- Detail -->
+        <div class="space-y-3 text-sm">
+          <div class="flex gap-4 items-start">
+            <img id="modalTicketPoster" src="" alt="" class="w-14 rounded-lg object-cover flex-shrink-0" style="aspect-ratio:2/3;" />
+            <div>
+              <p id="modalTicketTitle" class="text-white font-bold text-base"></p>
+              <p id="modalTicketGenre" class="genre-badge mt-1"></p>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-2 gap-3">
+            <div>
+              <p class="text-slate-500 text-xs uppercase tracking-wide mb-1">Waktu Tayang</p>
+              <p id="modalTicketShowTime" class="text-white font-medium text-xs"></p>
+            </div>
+            <div>
+              <p class="text-slate-500 text-xs uppercase tracking-wide mb-1">Studio</p>
+              <p id="modalTicketStudio" class="text-white font-medium"></p>
+            </div>
+          </div>
+
+          <div>
+            <p class="text-slate-500 text-xs uppercase tracking-wide mb-2">Kursi</p>
+            <div id="modalTicketSeats" class="flex flex-wrap gap-2"></div>
+          </div>
+
+          <div class="grid grid-cols-2 gap-3">
+            <div>
+              <p class="text-slate-500 text-xs uppercase tracking-wide mb-1">Nama</p>
+              <p id="modalTicketName" class="text-white font-medium"></p>
+            </div>
+            <div>
+              <p class="text-slate-500 text-xs uppercase tracking-wide mb-1">Dipesan Pada</p>
+              <p id="modalTicketDate" class="text-white font-medium text-xs"></p>
+            </div>
+          </div>
+
+          <div class="flex justify-between items-center pt-3 border-t border-white/5">
+            <span class="text-slate-300">Total Bayar</span>
+            <span id="modalTicketTotal" class="text-yellow-400 font-bold text-lg"></span>
+          </div>
+        </div>
+
+        <!-- Tombol lihat halaman konfirmasi -->
+        <a id="modalConfirmLink" href="#" class="btn-primary block text-center mt-4 text-sm">
+          Lihat Halaman Tiket →
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== TOAST ===== -->
+  <div id="toast"></div>
+
+  <script src="script/auth.js"></script>
+  <script src="script/my-tickets.js"></script>
+</body>
+</html>

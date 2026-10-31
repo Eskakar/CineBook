@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CineBook — Pesan Tiket Bioskop</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body class="min-h-screen">
+
+  <!-- ===== NAVBAR ===== -->
+  <nav class="navbar px-4 py-3">
+    <div class="max-w-6xl mx-auto flex items-center justify-between">
+      <a href="index.html" class="flex items-center gap-2 text-white font-bold text-xl tracking-tight">
+        🎬 <span class="text-red-500">Cine</span>Book
+      </a>
+      <div id="navAuth" class="flex items-center gap-4"></div>
+    </div>
+  </nav>
+
+  <!-- ===== HERO ===== -->
+  <section class="py-10 px-4 text-center">
+    <h1 class="text-3xl sm:text-4xl font-bold text-white mb-2">
+      Film <span class="text-red-500">Sedang Tayang</span>
+    </h1>
+    <p class="text-slate-400 text-sm">Pilih film favoritmu dan pesan tiket sekarang</p>
+  </section>
+
+  <!-- ===== DAFTAR FILM ===== -->
+  <main class="max-w-6xl mx-auto px-4 pb-16">
+
+    <!-- Loading spinner -->
+    <div id="loadingMovies" class="spinner"></div>
+
+    <!-- Error state -->
+    <div id="errorMovies" class="hidden text-center py-16 text-slate-500">
+      <p class="text-4xl mb-3">😞</p>
+      <p>Gagal memuat film. Pastikan server backend sudah berjalan.</p>
+    </div>
+
+    <!-- Grid film -->
+    <div id="movieGrid" class="hidden grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-5">
+      <!-- Di-render oleh main.js -->
+    </div>
+  </main>
+
+  <!-- ===== MODAL DETAIL FILM ===== -->
+  <div id="movieModal" class="modal-overlay" role="dialog" aria-modal="true">
+    <div class="modal-box">
+      <!-- Header modal dengan poster -->
+      <div class="relative">
+        <img id="modalPoster" src="" alt="" class="w-full h-48 object-cover" />
+        <button id="closeModal" class="absolute top-3 right-3 bg-black/60 hover:bg-black/80 text-white rounded-full w-8 h-8 flex items-center justify-center text-lg transition" aria-label="Tutup">✕</button>
+      </div>
+      <!-- Body modal -->
+      <div class="p-5">
+        <div class="flex items-start justify-between gap-3 mb-3">
+          <h2 id="modalTitle" class="text-white font-bold text-xl"></h2>
+          <span id="modalGenre" class="genre-badge flex-shrink-0"></span>
+        </div>
+        <p class="text-slate-400 text-sm mb-1">⏱ <span id="modalDuration"></span> menit</p>
+        <p id="modalSynopsis" class="text-slate-300 text-sm leading-relaxed mb-5"></p>
+
+        <!-- Jadwal tayang -->
+        <h3 class="text-white font-semibold mb-3 text-sm uppercase tracking-wide">Jadwal Tayang</h3>
+        <div id="loadingSchedules" class="spinner" style="width:24px;height:24px;margin:12px auto;"></div>
+        <div id="scheduleList" class="hidden flex flex-wrap gap-2">
+          <!-- Di-render oleh main.js -->
+        </div>
+        <p id="noSchedule" class="hidden text-slate-500 text-sm">Tidak ada jadwal tersedia.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== TOAST ===== -->
+  <div id="toast"></div>
+
+  <script src="script/auth.js"></script>
+  <script src="script/main.js"></script>
+</body>
+</html>
